@@ -15,11 +15,10 @@ public class CommonTest {
 	}
 	
 	public static void common(final int[] arr,final String name,TestMethod method) {
-		System.out.println(name + "-前："+ Arrays.toString(arr));
 		long start = System.currentTimeMillis();
 		method.sort(arr);
 		long end = System.currentTimeMillis();
-		System.out.println(name + "-后："+ Arrays.toString(arr));
+		//System.out.println(name + "-后："+ Arrays.toString(arr));
 		System.out.println("所需时间:"+ (end-start));
 	}
 }
