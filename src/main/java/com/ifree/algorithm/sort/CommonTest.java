@@ -14,11 +14,13 @@ public class CommonTest {
 		return arr;
 	}
 	
-	public static void common(final int[] arr,final String name,TestMethod method) {
+	public static void common(final int[] arr,final String name,TestMethod method,boolean flag) {
 		long start = System.currentTimeMillis();
 		method.sort(arr);
 		long end = System.currentTimeMillis();
-		System.out.println(name + "-后："+ Arrays.toString(arr));
+		if(flag) {
+			System.out.println(name + "-后："+ Arrays.toString(arr));
+		}
 		System.out.println("所需时间:"+ (end-start));
 	}
 }
