@@ -18,7 +18,7 @@ public class CommonTest {
 		long start = System.currentTimeMillis();
 		method.sort(arr);
 		long end = System.currentTimeMillis();
-		//System.out.println(name + "-后："+ Arrays.toString(arr));
+		System.out.println(name + "-后："+ Arrays.toString(arr));
 		System.out.println("所需时间:"+ (end-start));
 	}
 }
