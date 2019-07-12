@@ -1,4 +1,4 @@
-package com.ifree.algorithm.nio.socket;
+package com.ifree.algorithm.socket.nio;
 
 public class ServerSocketChannelTest {
 

@@ -1,4 +1,4 @@
-package com.ifree.algorithm.nio;
+package com.ifree.algorithm.socket;
 
 import java.net.InetAddress;
 import java.net.ServerSocket;
