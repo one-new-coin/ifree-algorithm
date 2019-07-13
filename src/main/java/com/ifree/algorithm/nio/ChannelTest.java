@@ -37,12 +37,28 @@ import org.junit.Test;
 	 2、jdk1.7后NIO2 针对各个通道提供了静态方法open()
 	 3、jdk1.7 中NIO2的Files工具类的newByteChannel()
 	 
-	 
+	四、通道之间的数据传输
+	transferFrom()
+	transferTo()
  * @author fypeng
  * @date 2019年7月13日
  *
  */
 public class ChannelTest {
+	
+	//通道之间直接传输 (直接缓冲的方式)
+	@Test
+	public void test3()throws Exception{
+		FileChannel inChannel =FileChannel.open(Paths.get("1.txt"), StandardOpenOption.READ);
+		FileChannel outChannel = FileChannel.open(Paths.get("6.txt"), StandardOpenOption.WRITE,StandardOpenOption.READ,StandardOpenOption.CREATE);
+		
+		//inChannel.transferTo(0, inChannel.size(), outChannel);
+		outChannel.transferFrom(inChannel, 0, inChannel.size());
+		
+		inChannel.close();
+		outChannel.close();
+		
+	}
 	
 	
 	//使用直接缓冲区完成文件的复制(内存映射文件)
