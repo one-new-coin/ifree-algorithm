@@ -3,12 +3,15 @@ package com.ifree.algorithm.nio;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.RandomAccessFile;
 import java.nio.ByteBuffer;
 import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
 import java.nio.channels.FileChannel.MapMode;
+import java.nio.charset.Charset;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
+import java.util.Map;
 
 import org.junit.Test;
 
@@ -45,6 +48,72 @@ import org.junit.Test;
  *
  */
 public class ChannelTest {
+
+	
+	/**
+	 * 
+	* @Title: test5
+	* @Description: 
+	* 
+	* 字符集：Charset
+	* 
+	* @param     参数
+	* @return void    返回类型
+	* @throws
+	 */
+	@Test
+	public void test5() {
+		Map<String,Charset> map = Charset.availableCharsets();
+		map.forEach((e,v)->{
+			System.out.println(e+":"+v);
+		});
+	}
+	
+	
+	/**
+	 *
+	* @Title: test4
+	* @Description: 
+	* 分散和聚集（Scatter和 Gather)
+	* 分散读取：将通道中的数据分散到多个缓冲区中
+	* 聚集写入：将多个缓冲数据聚集到通道中
+	* 
+	* @param     参数
+	* @return void    返回类型
+	* @throws
+	 */
+	@Test
+	public void test4()throws Exception {
+		RandomAccessFile file = new RandomAccessFile("1.txt", "rw");
+		FileChannel fc = file.getChannel();
+		
+		
+		ByteBuffer b1 = ByteBuffer.allocate(10);
+		ByteBuffer b2 = ByteBuffer.allocate(20);
+		
+		ByteBuffer[] dsts = {b1,b2};
+		fc.read(dsts);
+		
+		//打印dsts
+		System.out.println(new String(dsts[0].array(),0,dsts[0].limit()));
+		System.out.println(new String(dsts[1].array(),0,dsts[1].limit()));
+		
+		
+		
+		//聚集
+		b1.flip();
+		b2.flip();
+		RandomAccessFile gather = new RandomAccessFile("7.txt","rw");
+		FileChannel fc1 = gather.getChannel();
+		fc1.write(dsts);
+		
+		fc.close();
+		fc1.close();
+		file.close();
+		gather.close();
+	}
+	
+	
 	
 	//通道之间直接传输 (直接缓冲的方式)
 	@Test
